@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Teams</title>
+    <style>
+        body {
+
+            background: #2A2C39;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+
+        .container {
+            display: flex;
+            justify-content: center;
+            /* Zentriert die Bildcontainer horizontal */
+        }
+
+        .image-box {
+            position: relative;
+            /* Stellt die Positionierung relativ zum Bildcontainer ein */
+            margin-top: 20px;
+            margin-right: 5px;
+            /* Abstand zwischen den Bildcontainern */
+        }
+
+        .image-box:last-child {
+            margin-right: 0;
+            /* Entfernt den rechten Abstand vom letzten Bildcontainer */
+        }
+
+        .image-box img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .name {
+            position: absolute;
+            /* Positioniert den Namen relativ zum Bildcontainer */
+            bottom: 0;
+            /* Platziert den Namen am unteren Rand des Bildcontainers */
+            width: 100%;
+            /* Setzt die Breite des Namens auf die volle Breite des Bildcontainers */
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Hintergrundfarbe des Namens für bessere Lesbarkeit */
+            padding-top: 5px;
+            padding-bottom: 5px;
+            /* Innenabstand für den Namen */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .top-section input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .top-section button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .top-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            position: sticky;
+            left: 0;
+            bottom: 0;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            width: 100%;
+            background-color: #2A2C39;
+            color: #FFF;
+            text-align: center;
+        }
+
+        a:link,
+        a:visited {
+            color: #FFF;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-section">
+        <input value="5" id="gennumber" type="number" placeholder="Name eingeben">
+        <button onclick="pickrandomchamp()" type="button">Generieren</button>
+        <button onclick="copy(1)" type="button">Copy Team 1</button>
+        <button onclick="copy(2)" type="button">Copy Team 2</button>
+    </div>
+
+    <div class="container" id="team1">
+
+    </div>
+
+    <div class="container" id="team2">
+
+    </div>
+
+
+    <template id="card">
+        <div class="image-box">
+            <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Sona_6.jpg" alt="Bild 2">
+            <div class="name">Name 2</div>
+        </div>
+    </template>
+
+
+
+    <!-- The text field -->
+    <input style="display: none;" type="text" value="Hello World" id="myInput">
+
+
+    <div class="footer"> Made with ♥ by <a href="https://waytooeasy.dev">waytooeasy.dev</a> </div>
+
+    <script src="app.js"></script>
+</body>
+
+
+
+</html>
