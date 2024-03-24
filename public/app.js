@@ -166,7 +166,7 @@ var champs = [
 var champsObj = []
 
 
-//https://ddragon.leagueoflegends.com/cdn/14.6.1/data/en_US/champion.json
+
 
 async function getVersion() {
     console.log('getVersion');
@@ -177,29 +177,43 @@ async function getVersion() {
     return versions[0]
 }
 
+
+
+
+//https://ddragon.leagueoflegends.com/cdn/14.6.1/data/en_US/champion.json
 async function getChamps() {
-    console.log('champs');
+    console.log('getChamps');
 
     var version = await getVersion();
     console.log('version', version);
-    const response = await fetch(`https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`);
+    //const response = await fetch(`https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`);
+    const response = await fetch(`/champs`);
     const champs = await response.json();
 
     console.log(champs);
     return champs.data
 }
-/* 
-async function getChamps() {
-    console.log('champs');
-    const response = await fetch("https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Sona_6.jpg");
+
+
+
+
+//https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/133.json
+async function getChamp(champid) {
+    console.log('getChamp');
+    const response = await fetch(`https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/${champid}.json`);
     const champs = await response.json();
 
     console.log(champs);
     return champs.data
+}
+
+/* function buildPicURL(champName, skin) {
+    return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champName}_${skin}.jpg`
 } */
 
-function buildPicURL(champName) {
-    return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champName}_0.jpg`
+function buildPicURL(champName, skin) {
+    //http://localhost:8564/cache/img/Aatrox_0.jpg
+    return `/cache/img/${champName}_${skin}.jpg`
 }
 
 var team1txt = ''
@@ -241,7 +255,9 @@ async function pickrandomchamp() {
         const randomPickGeneral = getRandomChamp()
 
         var newCard = card.content.cloneNode(true)
-        newCard.children[0].children[0].src = buildPicURL(randomPickGeneral)
+        newCard.children[0].children[0].src = buildPicURL(randomPickGeneral, 0)
+        newCard.children[0].children[0].setAttribute("champid", randomPickGeneral);
+        newCard.children[0].children[0].setAttribute("index", 0);
         newCard.children[0].children[1].innerHTML = randomPickGeneral
         document.getElementById('team1').append(newCard)
         team1txt += ' ' + randomPickGeneral
@@ -252,12 +268,39 @@ async function pickrandomchamp() {
         const randomPickGeneral = getRandomChamp()
 
         var newCard = card.content.cloneNode(true)
-        newCard.children[0].children[0].src = buildPicURL(randomPickGeneral)
+        newCard.children[0].children[0].src = buildPicURL(randomPickGeneral, 0)
+        newCard.children[0].children[0].setAttribute("champid", randomPickGeneral);
+        newCard.children[0].children[0].setAttribute("index", 0);
         newCard.children[0].children[1].innerHTML = randomPickGeneral
         document.getElementById('team2').append(newCard)
         team2txt += ' ' + randomPickGeneral
     }
 }
+
+function changeSkin(element) {
+    var champid = element.getAttribute('champid')
+    var index = Number(element.getAttribute('index'))
+    var skins = champsObj[champid].moreInfo.skins
+    console.log(index + 1);
+    console.log(skins.length - 1);
+    console.log(index + 1 > skins.length - 1);
+    if (index + 1 > skins.length - 1) {
+        index = 0
+    } else {
+        index++
+    }
+
+    console.log(skins);
+    console.log(index);
+
+
+    element.setAttribute("index", index);
+    element.src = buildPicURL(champid, index)
+
+}
+
+
+
 
 function copy(team) {
     // Get the text field
@@ -278,5 +321,6 @@ function copy(team) {
     // Copy the text inside the text field
     navigator.clipboard.writeText(copyText.value);
 }
+
 
 pickrandomchamp()
