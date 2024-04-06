@@ -2,16 +2,16 @@
 import fetch from 'node-fetch';
 import express from 'express';
 import fs from 'node:fs';
-import https from 'https';
+//import https from 'https';
 import http from 'http';
 
 
 
 // This line is from the Node.js HTTPS documentation.
-var options = {
+/* var options = {
     key: fs.readFileSync('C://localhost-key.pem'),
     cert: fs.readFileSync('C://localhost.pem'),
-};
+}; */
 
 
 
@@ -145,7 +145,7 @@ async function initServer() {
     // Create an HTTP service.
     http.createServer(app).listen(8564);
     // Create an HTTPS service identical to the HTTP service.
-    https.createServer(options, app).listen(443);
+    //https.createServer(options, app).listen(443);
 
 }
 
