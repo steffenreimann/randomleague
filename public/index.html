@@ -37,6 +37,10 @@
             /* Abstand zwischen den Bildcontainern */
         }
 
+        .image-burned {
+            opacity: 0.3;
+        }
+
         .image-box:last-child {
             margin-right: 0;
             /* Entfernt den rechten Abstand vom letzten Bildcontainer */
@@ -71,6 +75,11 @@
         }
 
         .top-section input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .top-section p {
             padding: 10px;
             margin-right: 10px;
         }
@@ -112,6 +121,7 @@
 
 
     <div class="top-section">
+        <p id="champsNos" style="color: #FFF;">0</p>
         <input value="5" id="gennumber" type="number" placeholder="Name eingeben">
         <button onclick="pickrandomchamp()" type="button">Generieren</button>
         <button onclick="copy(1)" type="button">Copy Team 1</button>
@@ -130,7 +140,7 @@
     <template id="card">
         <div class="image-box">
             <!-- <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Sona_6.jpg" alt="Bild 2" onclick="changeSkin(this)" champid="" index="0"> -->
-            <img src="" alt="Bild 2" champid="" index="0">
+            <img src="" alt="Bild 2" champid="" index="0" onclick="burnChamp(this)">
             <div class="name">Name 2</div>
         </div>
     </template>

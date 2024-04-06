@@ -163,8 +163,8 @@ var champs = [
     "Zyra"
 ];
 
-var champsObj = []
-
+var champsObj = {}
+var buredChamps = {}
 
 
 
@@ -238,7 +238,7 @@ function getRandomChamp() {
 
 async function pickrandomchamp() {
 
-    champsObj = await getChamps()
+
 
     console.log(champsObj);
 
@@ -250,31 +250,37 @@ async function pickrandomchamp() {
     team1txt = '';
     team2txt = '';
 
-    for (let index = 0; index < champperteam; index++) {
+    if (champs.length >= (champperteam * 2)) {
+        for (let index = 0; index < champperteam; index++) {
 
-        const randomPickGeneral = getRandomChamp()
+            const randomPickGeneral = getRandomChamp()
 
-        var newCard = card.content.cloneNode(true)
-        newCard.children[0].children[0].src = buildPicURL(randomPickGeneral, 0)
-        newCard.children[0].children[0].setAttribute("champid", randomPickGeneral);
-        newCard.children[0].children[0].setAttribute("index", 0);
-        newCard.children[0].children[1].innerHTML = randomPickGeneral
-        document.getElementById('team1').append(newCard)
-        team1txt += ' ' + randomPickGeneral
+            var newCard = card.content.cloneNode(true)
+            newCard.children[0].children[0].src = buildPicURL(randomPickGeneral, 0)
+            newCard.children[0].children[0].setAttribute("champid", randomPickGeneral);
+            newCard.children[0].children[0].setAttribute("index", 0);
+            newCard.children[0].children[1].innerHTML = randomPickGeneral
+            document.getElementById('team1').append(newCard)
+            team1txt += ' ' + randomPickGeneral
+        }
+
+        for (let index = 0; index < champperteam; index++) {
+
+            const randomPickGeneral = getRandomChamp()
+
+            var newCard = card.content.cloneNode(true)
+            newCard.children[0].children[0].src = buildPicURL(randomPickGeneral, 0)
+            newCard.children[0].children[0].setAttribute("champid", randomPickGeneral);
+            newCard.children[0].children[0].setAttribute("index", 0);
+            newCard.children[0].children[1].innerHTML = randomPickGeneral
+            document.getElementById('team2').append(newCard)
+            team2txt += ' ' + randomPickGeneral
+        }
+    } else {
+        console.log('No More Champs');
     }
 
-    for (let index = 0; index < champperteam; index++) {
 
-        const randomPickGeneral = getRandomChamp()
-
-        var newCard = card.content.cloneNode(true)
-        newCard.children[0].children[0].src = buildPicURL(randomPickGeneral, 0)
-        newCard.children[0].children[0].setAttribute("champid", randomPickGeneral);
-        newCard.children[0].children[0].setAttribute("index", 0);
-        newCard.children[0].children[1].innerHTML = randomPickGeneral
-        document.getElementById('team2').append(newCard)
-        team2txt += ' ' + randomPickGeneral
-    }
 }
 
 function changeSkin(element) {
@@ -290,15 +296,31 @@ function changeSkin(element) {
         index++
     }
 
-    console.log(skins);
-    console.log(index);
-
-
     element.setAttribute("index", index);
     element.src = buildPicURL(champid, index)
 
 }
 
+function burnChamp(element) {
+    var champid = element.getAttribute('champid')
+
+    if (champsObj[champid]) {
+        buredChamps[champid] = champsObj[champid];
+        delete champsObj[champid];
+        element.classList.add('image-burned')
+        renderChampsBurned()
+    } else {
+        champsObj[champid] = buredChamps[champid];
+        delete buredChamps[champid];
+        element.classList.remove('image-burned')
+        renderChampsBurned()
+    }
+}
+
+
+function renderChampsBurned() {
+    document.getElementById('champsNos').innerHTML = 'burned champs: ' + Object.keys(buredChamps).length + '/' + Object.keys(champsObj).length;
+}
 
 
 
@@ -323,4 +345,11 @@ function copy(team) {
 }
 
 
-pickrandomchamp()
+async function init() {
+    champsObj = await getChamps()
+    pickrandomchamp()
+    renderChampsBurned()
+}
+
+
+init();

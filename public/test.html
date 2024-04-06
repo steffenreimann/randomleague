@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Pick Phase (ARAM Style)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .team {
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .team h2 {
+            margin-top: 0;
+        }
+
+        .players {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .player {
+            margin-bottom: 20px;
+        }
+
+        .champion-selection {
+            display: flex;
+        }
+
+        .champion {
+            background-color: #ddd;
+            border: 2px solid #888;
+            border-radius: 4px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .blue {
+            border-color: #0000ff;
+        }
+
+        .red {
+            border-color: #ff0000;
+        }
+    </style>
+
+
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="team blue">
+            <h2>Blue Team</h2>
+            <div class="players">
+                <div class="player" id="blue-player1">
+                    <div class="champion-selection">
+                        <div class="champion">Champion 1</div>
+                        <div class="champion">Champion 2</div>
+                        <div class="champion">Champion 3</div>
+                        <!-- Weitere Champion-Felder -->
+                    </div>
+                </div>
+                <!-- Weitere Spieler -->
+            </div>
+        </div>
+        <div class="team red">
+            <h2>Red Team</h2>
+            <div class="players">
+                <div class="player" id="red-player1">
+                    <div class="champion-selection">
+                        <div class="champion">Champion 1</div>
+                        <div class="champion">Champion 2</div>
+                        <div class="champion">Champion 3</div>
+                        <!-- Weitere Champion-Felder -->
+                    </div>
+                </div>
+                <!-- Weitere Spieler -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

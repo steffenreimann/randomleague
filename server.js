@@ -2,6 +2,19 @@
 import fetch from 'node-fetch';
 import express from 'express';
 import fs from 'node:fs';
+import https from 'https';
+import http from 'http';
+
+
+
+// This line is from the Node.js HTTPS documentation.
+var options = {
+    key: fs.readFileSync('C://localhost-key.pem'),
+    cert: fs.readFileSync('C://localhost.pem'),
+};
+
+
+
 
 var champs = {}
 
@@ -127,9 +140,12 @@ async function initServer() {
     version.version = await getVersion()
     await initCache()
 
+    ///app.listen(8564, () => console.log('Example app is listening on port 8564.'));
 
-
-    app.listen(8564, () => console.log('Example app is listening on port 8564.'));
+    // Create an HTTP service.
+    http.createServer(app).listen(8564);
+    // Create an HTTPS service identical to the HTTP service.
+    https.createServer(options, app).listen(443);
 
 }
 
